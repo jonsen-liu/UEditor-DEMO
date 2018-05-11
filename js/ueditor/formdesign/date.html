@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>文本框</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+    <link rel="stylesheet" href="../../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../../css/jquery.datetimepicker.css">
+    <script src="../../jquery1.8.3.min.js"></script>
+    <script type="text/javascript" src="../dialogs/internal.js"></script>
+    <script src="../../tool.js"></script>
+    <style>
+        #unit{
+            width: 52px;
+        }
+    </style>
+    <script type="text/javascript">
+        /* Thank you by
+         http://www.alt-tag.com/blog/2006/02/ie-dom-bugs/ */
+        function createElement(type, name)
+        {
+            var element = null;
+            try {
+                element = document.createElement('<'+type+' name="'+name+'">');
+            } catch (e) {}
+            if(element==null) {
+                element = document.createElement(type);
+                element.name = name;
+            }
+            return element;
+        }
+    </script>
+</head>
+<body>
+<div class="content">
+    <table class="table table-bordered table-striped table-hover">
+        <tr>
+            <th><span>控件名称(name)</span><span class="label label-important">*</span></th>
+            <th><span>ID</span> </th>
+        </tr>
+        <tr>
+            <td><input type="text" id="orgname" placeholder="必填(设置为name属性值)"></td>
+            <td><input type="text" id="orgvalue" placeholder="可填(ID默认和name值一致)"></td>
+        </tr>
+        <tr>
+            <th><span>&nbsp;&nbsp;&nbsp;&nbsp;长&nbsp;&nbsp;X&nbsp;&nbsp;宽&nbsp;&nbsp;&nbsp;&&nbsp;&nbsp;&nbsp;字体大小</span> </th>
+            <th>日期设定</th>
+        </tr>
+        <tr>
+            <td>
+                <input id="orgwidth" type="text" value="205" class="input-small span1"/>
+                <select name="unit" id="unit">
+                    <option value="px">px</option>
+                    <option value="%">%</option>
+                </select>
+                X
+                <input id="orgheight" type="text" value="" class="input-small span1"/>
+                &
+                <input id="orgfontsize" type="text"  value="" class="input-small span1"/> px
+
+            </td>
+            <td>
+                <input type="text" id="date">
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script src="../../jquery.datetimepicker.full.js"></script>
+
+<script>
+    $(function () {
+        $('#date').datetimepicker({
+            lang:"ch", //语言选择中文 注：旧版本 新版方法：$.datetimepicker.setLocale('ch');
+            format:"Y-m-d",      //格式化日期
+            timepicker:false,    //关闭时间选项
+            yearStart:2000,     //设置最小年份
+            yearEnd:2050,        //设置最大年份
+            todayButton:true    //关闭选择今天按钮
+        });
+        $.datetimepicker.setLocale('ch');
+    })
+</script>
+<script type="text/javascript">
+    var oNode = null,thePlugins = 'date';
+    window.onload = function() {
+        if( UE.plugins[thePlugins].editdom ){
+            oNode = UE.plugins[thePlugins].editdom;
+            var gTitle=oNode.getAttribute('title').replace(/&quot;/g,"\""),gFontSize=oNode.getAttribute('orgfontsize'),gWidth=oNode.getAttribute('orgwidth'),gHeight=oNode.getAttribute('orgheight'),gUnit=oNode.getAttribute('unit');
+
+            gTitle = gTitle==null ? '' : gTitle;
+            var gId = '';
+            if(oNode.getAttribute('id'))
+                gId = oNode.getAttribute('id').replace(/&quot;/g,"\"");
+            gId = gId==null ? '' : gId;
+            $G('orgvalue').value = gId;
+            var gdate = '';
+            if(oNode.getAttribute('value')) gdate = oNode.getAttribute('value');
+//            console.log(gdate);
+            gdate = gdate==null ? '' : gdate;
+            $G('date').value = gdate;
+            $G('orgname').value = gTitle;
+            $G('unit').value = gUnit||"px";
+            if(gFontSize!=null){
+                $G('orgfontsize').value = gFontSize;
+            }
+            if(gWidth!=null){
+                $G('orgwidth').value = gWidth;
+            }
+            if(gHeight!=null){
+                $G('orgheight').value = gHeight;
+            }
+        }
+    }
+    dialog.oncancel = function () {
+        if( UE.plugins[thePlugins].editdom ) {
+            delete UE.plugins[thePlugins].editdom;
+        }
+    };
+    dialog.onok = function (){
+        if($G('orgname').value==''){
+            alert('请输入控件名称');
+            return false;
+        }
+        var gdate=$G('date').value.replace(/\"/g,"&quot;"),gValue=$G('orgvalue').value.replace(/\"/g,"&quot;"),gTitle=$G('orgname').value.replace(/\"/g,"&quot;"),gFontSize=$G('orgfontsize').value,gWidth=$G('orgwidth').value,gHeight=$G('orgheight').value,gUnit=$G('unit').value;
+
+        if( !oNode ) {
+            try {
+                oNode = createElement('input','leipiNewField');
+                oNode.setAttribute('type','text');
+                oNode.setAttribute('idtype','date');
+                oNode.setAttribute('title',gTitle);
+                oNode.setAttribute('id',gValue);
+                oNode.setAttribute('value',gdate);
+                oNode.setAttribute('name',gTitle);
+                oNode.setAttribute('leipiPlugins',thePlugins);
+                oNode.setAttribute('unit',gUnit);
+                if( gFontSize != '' ) {
+                    oNode.style.fontSize = gFontSize + 'px';
+                    //style += 'font-size:' + gFontSize + 'px;';
+                    oNode.setAttribute('orgfontsize',gFontSize );
+                }
+                if( gWidth != '' ) {
+//                    oNode.style.width = gWidth+ 'px';
+                    //style += 'width:' + gWidth + 'px;';
+                    if(gUnit=="px"){
+                        oNode.style.width = gWidth + gUnit;
+                    }else {
+                        oNode.style.width = gWidth -5 + gUnit;
+                    }
+                    oNode.setAttribute('orgwidth',gWidth );
+                }
+                if( gHeight != '' ) {
+                    oNode.style.height = gHeight+ 'px';
+                    //style += 'height:' + gHeight + 'px;';
+                    oNode.setAttribute('orgheight',gHeight );
+                }
+                editor.execCommand('insertHtml',oNode.outerHTML);
+            } catch (e) {
+                try {
+                    editor.execCommand('error');
+                } catch ( e ) {
+                    alert('控件异常！');
+                }
+                return false;
+            }
+        } else {
+
+            oNode.setAttribute('title', gTitle);
+            oNode.setAttribute('idtype', 'date');
+            oNode.setAttribute('name', gTitle);
+            oNode.setAttribute('value', gdate);
+            oNode.setAttribute('id', $G('orgvalue').value);
+            oNode.setAttribute('unit',gUnit);
+
+            if( gFontSize != '' ) {
+                oNode.style.fontSize = gFontSize+ 'px';
+                oNode.setAttribute('orgfontsize',gFontSize );
+            }else{
+                oNode.style.fontSize = '';
+                oNode.setAttribute('orgfontsize', '');
+            }
+            if( gWidth != '' ) {
+                if(gUnit=="px"){
+                    oNode.style.width = gWidth + gUnit;
+                }else {
+                    oNode.style.width = gWidth -5 + gUnit;
+                }
+//                oNode.style.width = gWidth+ 'px';
+                oNode.setAttribute('orgwidth',gWidth );
+            }else{
+                oNode.style.width = '';
+                oNode.setAttribute('orgwidth', '');
+            }
+            if( gHeight != '' ) {
+                oNode.style.height = gHeight+ 'px';
+                oNode.setAttribute('orgheight',gHeight );
+            }else{
+                oNode.style.height = '';
+                oNode.setAttribute('orgheight', '');
+            }
+            delete UE.plugins[thePlugins].editdom;
+        }
+    };
+</script>
+
+</body>
+</html>

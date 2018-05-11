@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>上传控件</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="../dialogs/internal.js"></script>
+    <script type="text/javascript">
+        function createElement(type, name)
+        {
+            var element = null;
+            try {
+                element = document.createElement('<'+type+' name="'+name+'">');
+            } catch (e) {}
+            if(element==null) {
+                element = document.createElement(type);
+                element.name = name;
+            }
+            return element;
+        }
+    </script>
+</head>
+<body>
+<div class="content">
+    <table class="table table-bordered table-striped table-hover">
+        <tr>
+            <th><span>控件名称(必选)</span><span class="label label-important">*</span></th>
+            <th><span>ID</span></th>
+        </tr>
+        <tr>
+            <!--<td><input type="text" id="orgname" placeholder="必填(设置为name属性值)"></td>-->
+            <td>
+                <input type="text" id="orgname">
+            </td>
+            <td><input type="text" id="orgvalue" value="fileButton" disabled></td>
+        </tr>
+        <tr>
+            <th><span>&nbsp;&nbsp;&nbsp;&nbsp;宽&nbsp;&nbsp;X&nbsp;&nbsp;高&nbsp;&nbsp;&nbsp;&&nbsp;&nbsp;&nbsp;字体大小</span> </th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>
+                <input id="orgwidth" type="text" value="50" class="input-small span1" placeholder="50"/>
+                X
+                <input id="orgheight" type="text" value="" class="input-small span1" placeholder="auto"/>
+                &
+                <input id="orgfontsize" type="text"  value="" class="input-small span1" placeholder="auto"/> px
+
+            </td>
+            <td>
+                <!--<input type="text" id="msq">-->
+            </td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    var oNode = null,thePlugins = 'uploading';
+    window.onload = function() {
+        if( UE.plugins[thePlugins].editdom ){
+            oNode = UE.plugins[thePlugins].editdom;
+            var gValue=oNode.getAttribute('id'),gName=oNode.getAttribute('name'),gTitle=oNode.getAttribute('title'),gFontSize=oNode.getAttribute('orgfontsize'),gWidth=oNode.getAttribute('orgwidth'),gHeight=oNode.getAttribute('orgheight');
+//            console.log(gValue);
+            $G('orgvalue').value = gValue;
+            $G('orgname').value = gTitle||gName;
+        }
+    };
+    dialog.oncancel = function () {
+        if( UE.plugins[thePlugins].editdom ) {
+            delete UE.plugins[thePlugins].editdom;
+        }
+    };
+    dialog.onok = function (){
+        if($G('orgname').value==''){
+            alert('请输入控件名称');
+            return false;
+        }
+        var gForgvalue=$G('orgvalue').value,gForgname=$G('orgname').value,gFontSize=$G('orgfontsize').value,gWidth=$G('orgwidth').value,gHeight=$G('orgheight').value;
+
+        if( !oNode ) {
+            try {
+                oNode = createElement('input','leipiNewField');
+                oNode.setAttribute('type','button');
+                oNode.setAttribute('id',gForgvalue);
+                oNode.setAttribute('name',gForgname);
+                oNode.setAttribute('title',gForgname);
+                oNode.setAttribute('idType','file');
+                oNode.setAttribute('leipiPlugins',thePlugins);
+                if( gFontSize != '' ) {
+                    oNode.style.fontSize = gFontSize + 'px';
+                    //style += 'font-size:' + gFontSize + 'px;';
+                    oNode.setAttribute('orgfontsize',gFontSize );
+                }
+                if( gWidth != '' ) {
+                    oNode.style.width = gWidth+ 'px';
+                    //style += 'width:' + gWidth + 'px;';
+                    oNode.setAttribute('orgwidth',gWidth );
+                }
+                if( gHeight != '' ) {
+                    oNode.style.height = gHeight+ 'px';
+                    //style += 'height:' + gHeight + 'px;';
+                    oNode.setAttribute('orgheight',gHeight );
+                }
+                //oNode.setAttribute('style',style );
+                //oNode.style.cssText=style;//ie7
+
+                //注：这一行代码是插入DOM元素的代码
+                //oNode.outerHTML是添加的控件转换为字符串的结果
+                console.log(oNode.outerHTML);
+                //editor.execCommand是个方法
+                console.log(editor.execCommand);
+                editor.execCommand('insertHtml',oNode.outerHTML);
+            } catch (e) {
+                try {
+                    editor.execCommand('error');
+                } catch ( e ) {
+                    alert('控件异常！');
+                }
+                return false;
+            }
+        } else {
+            oNode.setAttribute('id',gForgvalue);
+            oNode.setAttribute('name',gForgname);
+            oNode.setAttribute('title',gForgname);
+            oNode.setAttribute('idType','file');
+            if( gFontSize != '' ) {
+                oNode.style.fontSize = gFontSize+ 'px';
+                oNode.setAttribute('orgfontsize',gFontSize );
+            }else{
+                oNode.style.fontSize = '';
+                oNode.setAttribute('orgfontsize', '');
+            }
+            if( gWidth != '' ) {
+                oNode.style.width = gWidth+ 'px';
+                oNode.setAttribute('orgwidth',gWidth );
+            }else{
+                oNode.style.width = '';
+                oNode.setAttribute('orgwidth', '');
+            }
+            if( gHeight != '' ) {
+                oNode.style.height = gHeight+ 'px';
+                oNode.setAttribute('orgheight',gHeight );
+            }else{
+                oNode.style.height = '';
+                oNode.setAttribute('orgheight', '');
+            }
+            delete UE.plugins[thePlugins].editdom;
+        }
+    };
+</script>
+</body>
+</html>

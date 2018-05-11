@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>按钮</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="../dialogs/internal.js"></script>
+    <script type="text/javascript">
+        function createElement(type, name)
+        {
+            var element = null;
+            try {
+                element = document.createElement('<'+type+' name="'+name+'">');
+            } catch (e) {}
+            if(element==null) {
+                element = document.createElement(type);
+                element.name = name;
+            }
+            return element;
+        }
+    </script>
+</head>
+<body>
+<div class="content">
+    <table class="table table-bordered table-striped table-hover">
+        <tr>
+            <th><span>控件名称(必选)</span><span class="label label-important">*</span></th>
+            <th><span>ID</span></th>
+        </tr>
+        <tr>
+            <!--<td><input type="text" id="orgname" placeholder="必填(设置为name属性值)"></td>-->
+            <td>
+                <input type="text" id="orgname">
+            </td>
+            <td>
+                <input type="text" id="orgvalue">
+            </td>
+        </tr>
+        <tr>
+            <th><span>&nbsp;&nbsp;&nbsp;&nbsp;宽&nbsp;&nbsp;X&nbsp;&nbsp;高&nbsp;&nbsp;&nbsp;&&nbsp;&nbsp;&nbsp;字体大小</span> </th>
+            <th>响应式表格的宽高</th>
+        </tr>
+        <tr>
+            <td>
+                <input id="orgwidth" type="text" value="100" class="input-small span1"/>
+                X
+                <input id="orgheight" type="text" value="" class="input-small span1"/>
+                &
+                <input id="orgfontsize" type="text"  value="" class="input-small span1"/> px
+
+            </td>
+            <td>
+                <input id="tableWidth" type="text" value="" class="input-small span1"/>
+                X
+                <input id="tableHeight" type="text" value="" class="input-small span1"/>
+            </td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    var oNode = null,thePlugins = 'tables';
+    window.onload = function() {
+        if( UE.plugins[thePlugins].editdom ){
+            oNode = UE.plugins[thePlugins].editdom;
+            var tableHeight=oNode.getAttribute('tableHeight'),tableWidth=oNode.getAttribute('tableWidth'),gName=oNode.getAttribute('name'),gValue=oNode.getAttribute('id'),gFontSize=oNode.getAttribute('orgfontsize'),gWidth=oNode.getAttribute('orgwidth'),gHeight=oNode.getAttribute('orgheight');
+
+            $G('orgvalue').value=gValue;
+            $G('orgname').value=gName;
+            $G('tableWidth').value=tableWidth;
+            $G('tableHeight').value=tableHeight;
+            if(gFontSize!=null){
+                $G('orgfontsize').value = gFontSize;
+            }
+            if(gWidth!=null){
+                $G('orgwidth').value = gWidth;
+            }
+            if(gHeight!=null){
+                $G('orgheight').value = gHeight;
+            }
+
+        }
+    }
+    dialog.oncancel = function () {
+        if( UE.plugins[thePlugins].editdom ) {
+            delete UE.plugins[thePlugins].editdom;
+        }
+    };
+    dialog.onok = function (){
+        if($G('orgname').value==''){
+            alert('请输入控件名称');
+            return false;
+        }
+        var tableHeight=$G('tableHeight').value,tableWidth=$G('tableWidth').value,gForgvalue=$G('orgvalue').value,gForgname=$G('orgname').value,gFontSize=$G('orgfontsize').value,gWidth=$G('orgwidth').value,gHeight=$G('orgheight').value;
+
+        if( !oNode ) {
+            try {
+                oNode = createElement('input','leipiNewField');
+                oNode.setAttribute('type','button');
+                oNode.setAttribute('id',gForgvalue);
+                oNode.setAttribute('idtype','table');
+                oNode.setAttribute('name',gForgname);
+                oNode.setAttribute('tableWidth',tableWidth || "100%");
+                oNode.setAttribute('tableHeight',tableHeight || "300px");
+                oNode.setAttribute('leipiPlugins',thePlugins);
+                if( gFontSize != '' ) {
+                    oNode.style.fontSize = gFontSize + 'px';
+                    //style += 'font-size:' + gFontSize + 'px;';
+                    oNode.setAttribute('orgfontsize',gFontSize );
+                }
+                if( gWidth != '' ) {
+                    oNode.style.width = gWidth+ 'px';
+                    //style += 'width:' + gWidth + 'px;';
+                    oNode.setAttribute('orgwidth',gWidth );
+                }
+                if( gHeight != '' ) {
+                    oNode.style.height = gHeight+ 'px';
+                    //style += 'height:' + gHeight + 'px;';
+                    oNode.setAttribute('orgheight',gHeight );
+                }
+            } catch (e) {
+                try {
+                    editor.execCommand('error');
+                } catch ( e ) {
+                    alert('控件异常！');
+                }
+                return false;
+            }
+        } else {
+            oNode.setAttribute('value', "响应式表格");
+            oNode.setAttribute('id', gForgvalue);
+            oNode.setAttribute('name',gForgname);
+            oNode.setAttribute('idtype', 'table');
+            oNode.setAttribute('tableWidth',tableWidth || "100%");
+            oNode.setAttribute('tableHeight',tableHeight || "300px");
+            oNode.setAttribute('leipiPlugins',thePlugins);
+
+            if( gFontSize != '' ) {
+                oNode.style.fontSize = gFontSize+ 'px';
+                oNode.setAttribute('orgfontsize',gFontSize );
+            }else{
+                oNode.style.fontSize = '';
+                oNode.setAttribute('orgfontsize', '');
+            }
+            if( gWidth != '' ) {
+                oNode.style.width = gWidth+ 'px';
+                oNode.setAttribute('orgwidth',gWidth );
+            }else{
+                oNode.style.width = '';
+                oNode.setAttribute('orgwidth', '');
+            }
+            if( gHeight != '' ) {
+                oNode.style.height = gHeight+ 'px';
+                oNode.setAttribute('orgheight',gHeight );
+            }else{
+                oNode.style.height = '';
+                oNode.setAttribute('orgheight', '');
+            }
+            delete UE.plugins[thePlugins].editdom;
+        }
+    };
+</script>
+</body>
+</html>

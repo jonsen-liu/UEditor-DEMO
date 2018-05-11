@@ -1,0 +1,32 @@
+/*手机*/
+@media screen and (min-width: 414px) {
+  ._tbody {
+    background-color: #00a2d4;
+  }
+}
+/*平板*/
+@media only screen and (min-width: 768px) {
+  ._tbody {
+    background-color: #add8e6;
+  }
+}
+/*PC*/
+@media only screen and (min-width: 1024px) {
+  ._tbody {
+    background-color: transparent;
+  }
+  ._tbody > ._tr {
+    text-align: center;
+  }
+  ._tbody > ._tr > ._td {
+    display: inline-block;
+    min-height: 46px;
+    line-height: 46px;
+    border: 1px solid #000;
+    box-sizing: border-box;
+  }
+  ._tbody > ._tr > ._td > input,
+  ._tbody > ._tr > ._td select {
+    margin: 0;
+  }
+}

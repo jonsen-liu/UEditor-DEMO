@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Title</title>
+    <style>
+        body{
+            padding-top: 40px;
+        }
+        #body {
+            padding: 0 10px;
+        }
+
+        .hearder {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            /*background-color: #f5f5f5;*/
+            background-color: #000;
+            z-index: 999;
+        }
+        .hearder input {
+            float: right;
+            margin: 5px 10px 0 0;
+        }
+    </style>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/bootstrap-table.min.css">
+    <link rel="stylesheet" href="./css/jquery.datetimepicker.css">
+    <script src="js/jquery1.8.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+        var formeditor = window.opener.formeditor();
+        console.log(formeditor);
+        function printdiv(printpage) {
+            var headhtml = "<html><head><title></title></head><body>";
+            var foothtml = "</body></html>";
+            // 获取div中的html内容
+//            var newhtml = document.all.item(printpage).innerHTML;
+            var newhtml = document.getElementById(printpage).innerHTML;
+            console.log(newhtml);
+            // 获取div中的html内容，jquery写法如下
+            // var newhtml= $("#" + printpage).html();
+
+            // 获取原来的窗口界面body的html内容，并保存起来
+            var oldhtml = document.body.innerHTML;
+
+            // 给窗口界面重新赋值，赋自己拼接起来的html内容
+            document.body.innerHTML = headhtml + newhtml + foothtml;
+            // 调用window.print方法打印新窗口
+            window.print();
+            // 将原来窗口body的html值回填展示
+            document.body.innerHTML = oldhtml;
+            return false;
+        }
+    </script>
+</head>
+<body>
+    <div class="hearder">
+        <input type="button" class="btn btn-danger" value="关闭" onclick="window.close();">
+        <input type="button" class="btn btn-success" value="打印" onclick="printdiv('body')">
+    </div>
+    <div id="body">
+
+    </div>
+</body>
+<script src=" ./js/bootstrap-table-all.min.js"></script>
+<script src="./js/bootstrap-table-zh-CN.min.js"></script>
+<script src="./js/jquery.datetimepicker.full.js"></script>
+<script>
+    var body = document.getElementById("body");
+    body.innerHTML = formeditor;
+    $(function () {
+        $('#date').datetimepicker({
+//            lang: "ch", //语言选择中文 注：旧版本 新版方法：$.datetimepicker.setLocale('ch');
+            format: "Y-m-d",       //格式化日期
+            timepicker: false,    //关闭时间选项
+            yearStart: 2000,       //设置最小年份
+            yearEnd: 2050,         //设置最大年份
+            todayButton: true      //关闭选择今天按钮
+        });
+        $.datetimepicker.setLocale('ch');//设置中文
+    })
+</script>
+</html>

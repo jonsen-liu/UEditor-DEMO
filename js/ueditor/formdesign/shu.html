@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>树控件</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="../dialogs/internal.js"></script>
+    <script type="text/javascript">
+        function createElement(type, name)
+        {
+            var element = null;
+            try {
+                element = document.createElement('<'+type+' name="'+name+'">');
+            } catch (e) {}
+            if(element==null) {
+                element = document.createElement(type);
+                element.name = name;
+            }
+            return element;
+        }
+    </script>
+</head>
+<body>
+<div class="content">
+    <table class="table table-bordered table-striped table-hover">
+        <tr>
+            <th><span>控件名称(必选)</span><span class="label label-important">*</span></th>
+            <th><span>ID</span></th>
+        </tr>
+        <tr>
+            <!--<td><input type="text" id="orgname" placeholder="必填(设置为name属性值)"></td>-->
+            <td>
+                <input type="text" id="orgname" value="">
+            </td>
+            <td><input type="text" id="orgvalue"></td>
+        </tr>
+        <tr>
+            <th>是否可编辑(CRUD)</th>
+            <th>是否直接显示树结构</th>
+        </tr>
+        <tr>
+            <td>
+                <select name="CRUD" id="CRUD">
+                    <option value="0">是</option>
+                    <option value="1">否</option>
+                </select>
+            </td>
+            <td>
+                <select name="shuShow" id="shuShow">
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><span>树控件&nbsp;&nbsp;&nbsp;&nbsp;宽&nbsp;&nbsp;X&nbsp;&nbsp;高&nbsp;&nbsp;&nbsp;&&nbsp;&nbsp;&nbsp;字体大小</span> </td>
+            <td><span>树结构&nbsp;&nbsp;&nbsp;&nbsp;宽&nbsp;&nbsp;X&nbsp;&nbsp;高</span>&nbsp;<strong>(不设置的话，宽度100%，高度由内容撑开)</strong></td>
+        </tr>
+        <tr>
+            <td>
+                <input id="orgwidth" type="text" value="50" class="input-small span1" placeholder="50"/>
+                X
+                <input id="orgheight" type="text" value="" class="input-small span1" placeholder="auto"/>
+                &
+                <input id="orgfontsize" type="text"  value="" class="input-small span1" placeholder="auto"/> px
+            </td>
+            <td>
+                <input id="shuWidth" type="text" value="" class="input-small span1" placeholder="auto"/>
+                X
+                <input id="shuHeight" type="text" value="" class="input-small span1" placeholder="auto"/>
+            </td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    var oNode = null,thePlugins = 'shu';
+    window.onload = function() {
+        if( UE.plugins[thePlugins].editdom ){
+            oNode = UE.plugins[thePlugins].editdom;
+            var gValue=oNode.getAttribute('id'),gName=oNode.getAttribute('name'),gFontSize=oNode.getAttribute('orgfontsize'),gWidth=oNode.getAttribute('orgwidth'),gHeight=oNode.getAttribute('orgheight'),shuWidth=oNode.getAttribute('shuWidth'),shuHeight=oNode.getAttribute('shuHeight'),CRUD=oNode.getAttribute('CRUD'),shuShow=oNode.getAttribute('shuShow');
+//            console.log(gValue);
+//            debugger;
+            $G('orgname').value=gName;
+            $G('orgvalue').value=gValue;
+            $G('shuWidth').value=shuWidth;
+            $G('shuHeight').value=shuHeight;
+            $G('CRUD').value=CRUD||1;
+            $G('shuShow').value=shuShow||0;
+            if(gFontSize!=null){
+                $G('orgfontsize').value = gFontSize;
+            }
+            if(gWidth!=null){
+                $G('orgwidth').value = gWidth;
+            }
+            if(gHeight!=null){
+                $G('orgheight').value = gHeight;
+            }
+
+        }
+    }
+    dialog.oncancel = function () {
+        if( UE.plugins[thePlugins].editdom ) {
+            delete UE.plugins[thePlugins].editdom;
+        }
+    };
+    dialog.onok = function (){
+        if($G('orgname').value==''){
+            alert('请输入控件名称');
+            return false;
+        }
+        var gForgvalue=$G('orgvalue').value,gForgname=$G('orgname').value,gFontSize=$G('orgfontsize').value,gWidth=$G('orgwidth').value,gHeight=$G('orgheight').value,shuWidth=$G('shuWidth').value,shuHeight=$G('shuHeight').value;
+        var CRUD = $G("CRUD").value,shuShow = $G("shuShow").value;
+
+
+        if( !oNode ) {
+            try {
+                oNode = createElement('input','leipiNewField');
+                oNode.setAttribute('type','button');
+                oNode.setAttribute('id',gForgvalue||gForgname);
+                oNode.setAttribute('leipiPlugins',thePlugins);
+                oNode.setAttribute('shuWidth',shuWidth);
+                oNode.setAttribute('shuHeight',shuHeight);
+                oNode.setAttribute('idtype','shu');
+                oNode.setAttribute('CRUD',CRUD);
+                oNode.setAttribute('shuShow',shuShow);
+                if( gFontSize != '' ) {
+                    oNode.style.fontSize = gFontSize + 'px';
+                    //style += 'font-size:' + gFontSize + 'px;';
+                    oNode.setAttribute('orgfontsize',gFontSize );
+                }
+                if( gWidth != '' ) {
+                    oNode.style.width = gWidth+ 'px';
+                    //style += 'width:' + gWidth + 'px;';
+                    oNode.setAttribute('orgwidth',gWidth );
+                }
+                if( gHeight != '' ) {
+                    oNode.style.height = gHeight+ 'px';
+                    //style += 'height:' + gHeight + 'px;';
+                    oNode.setAttribute('orgheight',gHeight );
+                }
+            } catch (e) {
+                try {
+                    editor.execCommand('error');
+                } catch ( e ) {
+                    alert('控件异常！');
+                }
+                return false;
+            }
+        } else {
+
+            oNode.setAttribute('id',gForgvalue||gForgname);
+            oNode.setAttribute('name',gForgname);
+            oNode.setAttribute('value', '树结构');
+            oNode.setAttribute('shuWidth',shuWidth);
+            oNode.setAttribute('shuHeight',shuHeight);
+            oNode.setAttribute('idtype','shu');
+            oNode.setAttribute('CRUD',CRUD);
+            oNode.setAttribute('shuShow',shuShow);
+
+            if( gFontSize != '' ) {
+                oNode.style.fontSize = gFontSize+ 'px';
+                oNode.setAttribute('orgfontsize',gFontSize );
+            }else{
+                oNode.style.fontSize = '';
+                oNode.setAttribute('orgfontsize', '');
+            }
+            if( gWidth != '' ) {
+                oNode.style.width = gWidth+ 'px';
+                oNode.setAttribute('orgwidth',gWidth );
+            }else{
+                oNode.style.width = '';
+                oNode.setAttribute('orgwidth', '');
+            }
+            if( gHeight != '' ) {
+                oNode.style.height = gHeight+ 'px';
+                oNode.setAttribute('orgheight',gHeight );
+            }else{
+                oNode.style.height = '';
+                oNode.setAttribute('orgheight', '');
+            }
+            delete UE.plugins[thePlugins].editdom;
+        }
+    };
+</script>
+</body>
+</html>
