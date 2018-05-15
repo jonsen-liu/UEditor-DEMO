@@ -1,11 +1,12 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
     <title>WEB表单设计器</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet"  href="./css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
     <link href="./css/bootstrap-responsive.css" rel="stylesheet">
     <!--引入自定义工具-->
     <script src="./js/tool.js"></script>
@@ -38,7 +39,7 @@
             position: relative;
         }
 
-        .nav-header > h4 {
+        .nav-header>h4 {
             color: #1f2f3d;
             font-weight: 400;
         }
@@ -47,31 +48,39 @@
             height: 30px !important;
         }
 
-        input, textarea, select {
+        input,
+        textarea,
+        select {
             max-width: 100%;
             box-sizing: border-box;
             width: 185px;
             cursor: pointer;
         }
+
         .span12 {
             float: right;
             width: 75%;
-            margin-right:1%;
+            margin-right: 1%;
         }
-        #kjList > li:first-child{
+
+        #kjList>li:first-child {
             padding: 0;
             margin: 0;
         }
-        #kjList li > a {
+
+        #kjList li>a {
             display: block;
             position: relative;
         }
-        #kjList li > ul > li:hover {
+
+        #kjList li>ul>li:hover {
             background-color: #b0e4ff;
         }
-        #texts > li > a > input {
+
+        #texts>li>a>input {
             margin: 10px;
         }
+
         u {
             position: absolute;
             width: 100%;
@@ -86,7 +95,7 @@
             font-weight: 400;
         }
 
-        .active{
+        .active {
             -webkit-transition: transform 300ms;
             -moz-transition: transform 300ms;
             -ms-transition: transform 300ms;
@@ -94,7 +103,8 @@
             transition: transform 300ms;
             transform: rotateZ(90deg);
         }
-        .actived{
+
+        .actived {
             -webkit-transition: transform 300ms;
             -moz-transition: transform 300ms;
             -ms-transition: transform 300ms;
@@ -103,7 +113,7 @@
             transform: rotateZ(0deg);
         }
 
-        #kjList li > ul {
+        #kjList li>ul {
             display: none;
             color: #999;
             list-style: none;
@@ -113,11 +123,12 @@
             opacity: .25;
         }
 
-        #button > ul > li > a {
+        #button>ul>li>a {
             position: relative;
             width: 90px;
         }
-        #isESC{
+
+        #isESC {
             height: 40px;
             line-height: 40px;
             background-color: #cccccc;
@@ -128,176 +139,239 @@
     <script src="//at.alicdn.com/t/font_662964_apfzid9r3jlzbyb9.js"></script>
     <style type="text/css">
         .icon {
-            width: 1.2em; height: 1.2em;
+            width: 1.2em;
+            height: 1.2em;
             vertical-align: -0.15em;
             fill: currentColor;
             overflow: hidden;
         }
     </style>
 </head>
-<body>
-<div class="container-fluid" id="show">
-    <!--<form>-->
-    <div class="row">
-        <div class="span2" onselectstart="return false;">
-            <ul class="nav nav-list" id="kjList">
-                <li class="nav-header"><h4>
-                    <svg class="icon" aria-hidden="true">
-                        <use xlink:href="#icon-zujian"></use>
-                    </svg>&nbsp;&nbsp;&nbsp;自定义控件</h4>
-                </li>
-                <!--重要组件-->
-                <li style="position: relative;">
-                    <a href="javascript:;" class="texts" ondragstart="return false">
-                        <svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-zhongyao"></use>
-                        </svg>
-                        &nbsp;&nbsp;&nbsp;重要组件
-                        <i class="icon-chevron-right actived"></i>
 
-                    </a>
-                    <ul>
-                        <li onclick="leipiFormDesign.exec('replace');">
-                            <a href="javascript:;" draggable="true">
-                                <u></u>
-                                <input type="button" class="btn btn-danger" id="isReplace" value="替换table表格"/>
-                            </a>
-                        </li>
-                        <li onclick="leipiFormDesign.exec('verify');">&nbsp;<a href="javascript:;" draggable="true"><span
-                                title="verify" name="verify" id="verify" data-msq="" idtype="verify"
-                                orgchecked="orgchecked0" leipiplugins="verify"><input name="verify" value="校验"
-                                                                                      type="radio"/>校验&nbsp;<input name="verify" value="不校验" checked="checked"
-                                                                                                                   type="radio"/>不校验&nbsp;</span></a>
-                        </li>
-                    </ul>
-                </li>
-                <!--树结构-->
-                <li style="position: relative;">
-                    <a href="javascript:;" class="texts" ondragstart="return false">
-                        <svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-gongju2"></use>
-                        </svg>&nbsp;&nbsp;&nbsp;工具组件
-                        <i class="icon-chevron-right actived"></i>
-                    </a>
-                    <ul>
-                        <li onclick="leipiFormDesign.exec('shu');">&nbsp;<a href="javascript:;" draggable="true"><u
-                                ></u><input type="button" class="btn btn-primary" id="shu" idtype="shu"
-                                                              leipiplugins="shu" value="树结构"></a></li>
-                        <li onclick="leipiFormDesign.exec('paging');">&nbsp;<a href="javascript:;" draggable="true"><u
-                                ></u><input type="button" class="btn btn-success" id="paging"
-                                                               leipiplugins="paging" idtype="paging" value="分页"></a></li>
-                        <li onclick="leipiFormDesign.exec('uploading');">&nbsp;<a href="javascript:;" draggable="true"><u
-                                ></u><input type="button" id="fileButton" idtype="file" class="btn btn-success" leipiplugins="uploading" value="上传"></a></li>
-                        <li onclick="leipiFormDesign.exec('');">&nbsp;<a href="javascript:;" draggable="true"><u
-                                ></u><input type="button" id="total" idtype="total" class="btn btn-primary" leipiplugins="total" value="合计"></a></li>
-                        <li onclick="leipiFormDesign.exec('tables');">&nbsp;<a href="javascript:;" draggable="true"><u
-                        ></u><input type="button" id="tabel" idtype="table" class="btn btn-primary" leipiplugins="tables" tableheight="300"  value="响应式表格"></a></li>
-                    </ul>
-                </li>
-                <!--文本框-->
-                <li>
-                    <a href="javascript:;" class="texts" ondragstart="return false">
-                        <svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-file"></use>
-                        </svg>&nbsp;&nbsp;&nbsp;文本框组件
-                        <i class="icon-chevron-right actived"></i></a>
-                    <ul>
-                        <li onclick="leipiFormDesign.exec('text');">文本框:<a href="javascript:;" draggable="true"><input
-                                name="text" type="text" idtype="text" title="" value="" placeholder="" class="leipiplugins"
-                                leipiplugins="text"></a></li>
-                        <!--//多行文本-->
-                        <li onclick="leipiFormDesign.exec('textarea');">多行文本: <a href="javascript:;"
-                                                                                 draggable="true"><textarea title="多行文本"
-                                                                                                            idtype = "textarea"
-                                                                                                            name="leipiNewField"
-                                                                                                            class="leipiplugins"
-                                                                                                            leipiplugins="textarea"
-                                                                                                            placeholder=""></textarea></a>
-                        </li>
-                    </ul>
-                </li>
-                <!--日期组件-->
-                <li>
-                    <a href="javascript:;" class="texts" ondragstart="return false">
-                        <svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-riqi4"></use>
-                        </svg>&nbsp;&nbsp;&nbsp;日期组件
-                        <i class="icon-chevron-right actived"></i></a>
-                    <ul>
-                        <li onclick="leipiFormDesign.exec('date');">日期时间:<a href="javascript:;" draggable="true"><input name="text" id="date" value="2017-09-20"
-                                                                                type="text" idtype="date" title="" class="leipiplugins"
-                                                                                leipiplugins="date"></a></li>
-                    </ul>
-                </li>
-                <!--选项框-->
-                <li>
-                    <a href="javascript:;" class="texts" ondragstart="return false">
-                        <svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-xuanze1"></use>
-                        </svg>&nbsp;&nbsp;&nbsp;选项框组件
-                        <i class="icon-chevron-right actived"></i></a>
-                    <ul>
-                        <!--下拉框-->
-                        <li onclick="leipiFormDesign.exec('select');" style="position: relative">下拉框: <a
-                                href="javascript:;" draggable="true"><u></u><select name="leipiNewField"
-                                                                                    idtype="select"
-                                                                                    title=""
-                                                                                    class="leipiplugins"
-                                                                                    leipiplugins="select">
-                            <option>选项一</option>
-                            <option>选项二</option>
-                            <option>选项三</option>
-                        </select></a></li>
-                        <!--单选-->
-                        <li onclick="leipiFormDesign.exec('radios');">单选: <a href="javascript:;" draggable="true"><span
-                                leipiplugins="radios" title="" name="radios" idtype="radio"><input
-                                value="单选1" type="radio" checked="checked" name="radio">单选1&nbsp;<input
-                                value="单选2" type="radio" name="radio">单选2&nbsp;</span></a>
-                        </li>
-                        <!--多选-->
-                        <li onclick="leipiFormDesign.exec('checkboxs');">多选: <a href="javascript:;" draggable="true"><span leipiplugins="checkboxs" title="" name="checkboxs" idtype="checkbox"><input
-                                    name="checkboxs" value="复选1" type="checkbox" checked="checked">复选1&nbsp;<input
-                                    name="checkboxs" value="复选2" type="checkbox" checked="checked">复选2&nbsp;<input
-                                    name="checkboxs" value="复选3" type="checkbox">复选3</span></a>
-                        </li>
-                    </ul>
-                </li>
-                <!--按钮-->
-                <li id="button">
-                    <a href="javascript:;" class="texts" ondragstart="return false">
-                        <svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-anniu"></use>
-                        </svg>&nbsp;&nbsp;&nbsp;按钮组件
-                        <i class="icon-chevron-right actived"></i></a>
-                    <ul>
-                        <li onclick="leipiFormDesign.exec('button');">&nbsp;<a href="javascript:;" draggable="true" ><u></u><input
-                                type="button" class="btn btn-success" id="entering" idtype="button"
-                                leipiplugins="button" value="AJAX"></a></li>
-                        <li onclick="leipiFormDesign.exec('button');">&nbsp;<a href="javascript:;" draggable="true" ><u></u><input
-                                type="button" class="btn btn-success" id="add" idtype="button" leipiplugins="button"
-                                value="新增"></a></li>
-                        <li onclick="leipiFormDesign.exec('button');">&nbsp;<a href="javascript:;" draggable="true" ><u></u><input
-                                type="button" class="btn btn-info" id="move" leipiplugins="button" idtype="button"
-                                value="移动"></a></li>
-                        <li onclick="leipiFormDesign.exec('button');">&nbsp;<a href="javascript:;" draggable="true" ><u></u><input
-                                type="button" class="btn btn-danger" id="remove" leipiplugins="button" idtype="button"
-                                value="删除"></a></li>
-                        <li onclick="leipiFormDesign.exec('button');">&nbsp;<a href="javascript:;" draggable="true" ><u></u><input
-                                type="button" class="btn btn-warning" id="countermand" idtype="button"
-                                leipiplugins="button" value="取消"></a></li>
-                    </ul>
-                </li>
-            </ul>
+<body>
+    <div class="container-fluid" id="show">
+        <!--<form>-->
+        <div class="row">
+            <div class="span2" onselectstart="return false;">
+                <ul class="nav nav-list" id="kjList">
+                    <li class="nav-header">
+                        <h4>
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-zujian"></use>
+                            </svg>&nbsp;&nbsp;&nbsp;自定义控件</h4>
+                    </li>
+                    <!--重要组件-->
+                    <li style="position: relative;">
+                        <a href="javascript:;" class="texts" ondragstart="return false">
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-zhongyao"></use>
+                            </svg>
+                            &nbsp;&nbsp;&nbsp;重要组件
+                            <i class="icon-chevron-right actived"></i>
+
+                        </a>
+                        <ul>
+                            <li onclick="leipiFormDesign.exec('replace');">
+                                <a href="javascript:;" draggable="true">
+                                    <u></u>
+                                    <input type="button" class="btn btn-danger" id="isReplace" value="响应式" />
+                                </a>
+                            </li>
+                            <li onclick="leipiFormDesign.exec('verify');">&nbsp;
+                                <a href="javascript:;" draggable="true">
+                                    <span title="verify" name="verify" id="verify" data-msq="" idtype="verify" orgchecked="orgchecked0"
+                                        leipiplugins="verify">
+                                        <input name="verify" value="校验" type="radio" />校验&nbsp;
+                                        <input name="verify" value="不校验" checked="checked" type="radio" />不校验&nbsp;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!--树结构-->
+                    <li style="position: relative;">
+                        <a href="javascript:;" class="texts" ondragstart="return false">
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-gongju2"></use>
+                            </svg>&nbsp;&nbsp;&nbsp;工具组件
+                            <i class="icon-chevron-right actived"></i>
+                        </a>
+                        <ul>
+                            <li onclick="leipiFormDesign.exec('shu');">&nbsp;
+                                <a href="javascript:;" draggable="true">
+                                    <u></u>
+                                    <input type="button" class="btn btn-primary" id="shu" idtype="shu" leipiplugins="shu"
+                                        value="树结构">
+                                </a>
+                            </li>
+                            <li onclick="leipiFormDesign.exec('paging');">&nbsp;
+                                <a href="javascript:;" draggable="true">
+                                    <u></u>
+                                    <input type="button" class="btn btn-success" id="paging" leipiplugins="paging" idtype="paging"
+                                        value="分页">
+                                </a>
+                            </li>
+                            <li onclick="leipiFormDesign.exec('uploading');">&nbsp;
+                                <a href="javascript:;" draggable="true">
+                                    <u></u>
+                                    <input type="button" id="fileButton" idtype="file" class="btn btn-success" leipiplugins="uploading"
+                                        value="上传">
+                                </a>
+                            </li>
+                            <li onclick="leipiFormDesign.exec('');">&nbsp;
+                                <a href="javascript:;" draggable="true">
+                                    <u></u>
+                                    <input type="button" id="total" idtype="total" class="btn btn-primary" leipiplugins="total"
+                                        value="合计">
+                                </a>
+                            </li>
+                            <li onclick="leipiFormDesign.exec('tables');">&nbsp;
+                                <a href="javascript:;" draggable="true">
+                                    <u></u>
+                                    <input type="button" id="tabel" idtype="table" class="btn btn-primary" leipiplugins="tables"
+                                        tableheight="300" value="响应式表格">
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!--文本框-->
+                    <li>
+                        <a href="javascript:;" class="texts" ondragstart="return false">
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-file"></use>
+                            </svg>&nbsp;&nbsp;&nbsp;文本框组件
+                            <i class="icon-chevron-right actived"></i>
+                        </a>
+                        <ul>
+                            <li onclick="leipiFormDesign.exec('text');">文本框:
+                                <a href="javascript:;" draggable="true">
+                                    <input name="text" type="text" idtype="text" title="" value="" placeholder="" class="leipiplugins"
+                                        leipiplugins="text">
+                                </a>
+                            </li>
+                            <!--//多行文本-->
+                            <li onclick="leipiFormDesign.exec('textarea');">多行文本:
+                                <a href="javascript:;" draggable="true">
+                                    <textarea title="多行文本" idtype="textarea" name="leipiNewField" class="leipiplugins" leipiplugins="textarea"
+                                        placeholder=""></textarea>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!--日期组件-->
+                    <li>
+                        <a href="javascript:;" class="texts" ondragstart="return false">
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-riqi4"></use>
+                            </svg>&nbsp;&nbsp;&nbsp;日期组件
+                            <i class="icon-chevron-right actived"></i>
+                        </a>
+                        <ul>
+                            <li onclick="leipiFormDesign.exec('date');">日期时间:
+                                <a href="javascript:;" draggable="true">
+                                    <input name="text" id="date" value="2017-09-20" type="text" idtype="date" title="" class="leipiplugins"
+                                        leipiplugins="date">
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!--选项框-->
+                    <li>
+                        <a href="javascript:;" class="texts" ondragstart="return false">
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-xuanze1"></use>
+                            </svg>&nbsp;&nbsp;&nbsp;选项框组件
+                            <i class="icon-chevron-right actived"></i>
+                        </a>
+                        <ul>
+                            <!--下拉框-->
+                            <li onclick="leipiFormDesign.exec('select');" style="position: relative">下拉框:
+                                <a href="javascript:;" draggable="true">
+                                    <u></u>
+                                    <select name="leipiNewField" idtype="select" title="" class="leipiplugins" leipiplugins="select">
+                                        <option>选项一</option>
+                                        <option>选项二</option>
+                                        <option>选项三</option>
+                                    </select>
+                                </a>
+                            </li>
+                            <!--单选-->
+                            <li onclick="leipiFormDesign.exec('radios');">单选:
+                                <a href="javascript:;" draggable="true">
+                                    <span leipiplugins="radios" title="" name="radios" idtype="radio">
+                                        <input value="单选1" type="radio" checked="checked" name="radio">单选1&nbsp;
+                                        <input value="单选2" type="radio" name="radio">单选2&nbsp;</span>
+                                </a>
+                            </li>
+                            <!--多选-->
+                            <li onclick="leipiFormDesign.exec('checkboxs');">多选:
+                                <a href="javascript:;" draggable="true">
+                                    <span leipiplugins="checkboxs" title="" name="checkboxs" idtype="checkbox">
+                                        <input name="checkboxs" value="复选1" type="checkbox" checked="checked">复选1&nbsp;
+                                        <input name="checkboxs" value="复选2" type="checkbox" checked="checked">复选2&nbsp;
+                                        <input name="checkboxs" value="复选3" type="checkbox">复选3</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!--按钮-->
+                    <li id="button">
+                        <a href="javascript:;" class="texts" ondragstart="return false">
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-anniu"></use>
+                            </svg>&nbsp;&nbsp;&nbsp;按钮组件
+                            <i class="icon-chevron-right actived"></i>
+                        </a>
+                        <ul>
+                            <li onclick="leipiFormDesign.exec('button');">&nbsp;
+                                <a href="javascript:;" draggable="true">
+                                    <u></u>
+                                    <input type="button" class="btn btn-success" id="entering" idtype="button" leipiplugins="button"
+                                        value="AJAX">
+                                </a>
+                            </li>
+                            <li onclick="leipiFormDesign.exec('button');">&nbsp;
+                                <a href="javascript:;" draggable="true">
+                                    <u></u>
+                                    <input type="button" class="btn btn-success" id="add" idtype="button" leipiplugins="button"
+                                        value="新增">
+                                </a>
+                            </li>
+                            <li onclick="leipiFormDesign.exec('button');">&nbsp;
+                                <a href="javascript:;" draggable="true">
+                                    <u></u>
+                                    <input type="button" class="btn btn-info" id="move" leipiplugins="button" idtype="button"
+                                        value="移动">
+                                </a>
+                            </li>
+                            <li onclick="leipiFormDesign.exec('button');">&nbsp;
+                                <a href="javascript:;" draggable="true">
+                                    <u></u>
+                                    <input type="button" class="btn btn-danger" id="remove" leipiplugins="button" idtype="button"
+                                        value="删除">
+                                </a>
+                            </li>
+                            <li onclick="leipiFormDesign.exec('button');">&nbsp;
+                                <a href="javascript:;" draggable="true">
+                                    <u></u>
+                                    <input type="button" class="btn btn-warning" id="countermand" idtype="button" leipiplugins="button"
+                                        value="取消">
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="span12">
+                <form action="" method="post" id="myform">
+                    <!-- 加载编辑器的容器 -->
+                    <script id="myFormDesign" type="text/plain" name="content">
+                    </script>
+                </form>
+            </div>
         </div>
-        <div class="span12">
-            <form action="" method="post" id="myform">
-                <!-- 加载编辑器的容器 -->
-                <script id="myFormDesign" type="text/plain" name="content">
-                </script>
-            </form>
-        </div>
-    </div><!--end row-->
-</div><!--end container-fluid-->
+        <!--end row-->
+    </div>
+    <!--end container-fluid-->
 </body>
 <script src="./js/jquery1.8.3.min.js"></script>
 <script src="./js/jquery.datetimepicker.full.js"></script>
@@ -309,10 +383,10 @@
 <script>
     //此函数是子页面获取的函数
     function formeditor() {
-//        var dataObj = tool.getFormeditor(editor.getContent());
+        //        var dataObj = tool.getFormeditor(editor.getContent());
         var dataObj = editor.getContent();
-//        var formeditor = dataObj.formeditor;
-//        console.log(dataObj);
+        //        var formeditor = dataObj.formeditor;
+        //        console.log(dataObj);
         return dataObj;
     }
     document.ondragover = function (e) {
@@ -321,36 +395,38 @@
 
 
     $(function () {
+        var d = tool.getToDayDate('yyyy-MM-dd');
+        $('#date').val(d);
         //---------------------日期插件实例化---------------
-        $('#date').datetimepicker({
-            lang: "ch", //语言选择中文 注：旧版本 新版方法：$.datetimepicker.setLocale('ch');
-            format: "Y-m-d",       //格式化日期
-            timepicker: false,    //关闭时间选项
-            yearStart: 2000,       //设置最小年份
-            yearEnd: 2050,         //设置最大年份
-            todayButton: true    //关闭选择今天按钮
-        });
-        $.datetimepicker.setLocale('ch');
+        //        $('#date').datetimepicker({
+        ////            lang: "ch", //语言选择中文 注：旧版本 新版方法：$.datetimepicker.setLocale('ch');
+        //            format: "Y-m-d",       //格式化日期
+        //            timepicker: false,    //关闭时间选项
+        //            yearStart: 2000,       //设置最小年份
+        //            yearEnd: 2050,         //设置最大年份
+        //            todayButton: true    //关闭选择今天按钮
+        //        });
+        //        $.datetimepicker.setLocale('ch');
         //---------------------手风琴效果--------------------
         var $texts = $(".texts");
         for (var i = 0; i < $texts.length; i++) {
             $texts[i].index = i;
-            $texts.eq(i).on("click",function () {
+            $texts.eq(i).on("click", function () {
                 var index = this.index;
-                $.each($texts,function (i,v) {
-                    $(v).next().stop()
-                    if(i!=index) {
+                $.each($texts, function (i, v) {
+                    $(v).next().stop();
+                    if (i != index) {
                         $(v).next().hide(300);
-                        $(v).children("i").attr("class","icon-chevron-right actived");
+                        $(v).children("i").attr("class", "icon-chevron-right actived");
                     }
                 });
                 var $el = $(this).next();
-                var $IC  = $(this).children("i");
-//                debugger;
-                if($IC.hasClass("active")  ){
-                    $IC.attr('class',"icon-chevron-right actived");
-                }else {
-                    $IC.attr('class',"icon-chevron-right active");
+                var $IC = $(this).children("i");
+                //                debugger;
+                if ($IC.hasClass("active")) {
+                    $IC.attr('class', "icon-chevron-right actived");
+                } else {
+                    $IC.attr('class', "icon-chevron-right active");
                 }
                 $el.toggle(300);
             });
@@ -358,29 +434,27 @@
     });
     var editor = UE.getEditor("myFormDesign");
 
-//    editor.addListener('contentChange', function () {//监听富文本里的内容发生改变时触发
+    //    editor.addListener('contentChange', function () {//监听富文本里的内容发生改变时触发
 
-//    });
+    //    });
 
-    editor.addListener("ready", function () {//监听富文本是否加载完成
+    editor.addListener("ready", function () { //监听富文本是否加载完成
         //通过ajax请求数据
         var urlId = tool.getUrlParam("id");
 
         if (!urlId) return false;
-        UE.ajax.request("http://DESKTOP-IP4KFHU:18280/from/getDynamicForm",
-            {
-                method: "post",
-                //是否是异步请求。 true为异步请求， false为同步请求
-                async: true,
-                data: {
-                    "id": urlId
-                },
-                onsuccess: function (xhr) {
-                    var tem = JSON.parse(xhr.responseText).data.content;
-                    UE.getEditor("myFormDesign").setContent(tem);
-                }
+        UE.ajax.request("http://DESKTOP-IP4KFHU:18280/from/getDynamicForm", {
+            method: "post",
+            //是否是异步请求。 true为异步请求， false为同步请求
+            async: true,
+            data: {
+                "id": urlId
+            },
+            onsuccess: function (xhr) {
+                var tem = JSON.parse(xhr.responseText).data.content;
+                UE.getEditor("myFormDesign").setContent(tem);
             }
-        );
+        });
     });
 </script>
 </html>

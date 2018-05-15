@@ -33,16 +33,19 @@
     <link rel="stylesheet" href="./css/jquery.datetimepicker.css">
     <script src="js/jquery1.8.3.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="./js/tool.js"></script>
     <script>
         var formeditor = window.opener.formeditor();
-        console.log(formeditor);
+        // console.log(formeditor);
+        var objFormeditor = tool.getFormeditor(formeditor);
         function printdiv(printpage) {
-            var headhtml = "<html><head><title></title></head><body>";
-            var foothtml = "</body></html>";
+            var headhtml = "\<html\>\<head\>\<title\>\<\/title\>\<\/head\>\<body\>";
+            var foothtml = "\<\/body\>\<\/html\>";
+            // debugger;
             // 获取div中的html内容
 //            var newhtml = document.all.item(printpage).innerHTML;
             var newhtml = document.getElementById(printpage).innerHTML;
-            console.log(newhtml);
+//            console.log(newhtml);
             // 获取div中的html内容，jquery写法如下
             // var newhtml= $("#" + printpage).html();
 
@@ -73,7 +76,7 @@
 <script src="./js/jquery.datetimepicker.full.js"></script>
 <script>
     var body = document.getElementById("body");
-    body.innerHTML = formeditor;
+    body.innerHTML = objFormeditor.formeditor;
     $(function () {
         $('#date').datetimepicker({
 //            lang: "ch", //语言选择中文 注：旧版本 新版方法：$.datetimepicker.setLocale('ch');
@@ -85,5 +88,6 @@
         });
         $.datetimepicker.setLocale('ch');//设置中文
     })
+   
 </script>
 </html>

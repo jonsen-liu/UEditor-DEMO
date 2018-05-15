@@ -18972,6 +18972,7 @@
                         html.push('<tr' + (r == 0 ? ' class="firstRow"':'') + '>');
                         for (var c = 0; c < colsNum; c++) {
                             html.push('<td width="' + tdWidth + '"  vAlign="' + opt.tdvalign + '" >' + (browser.ie && browser.version < 11 ? domUtils.fillChar : '<br/>') + '</td>')
+                            // html.push('<td style="border:1px solid #ddd;" width="' + tdWidth + '"  vAlign="' + opt.tdvalign + '" >' + (browser.ie && browser.version < 11 ? domUtils.fillChar : '<br/>') + '</td>')
                         }
                         html.push('</tr>')
                     }
