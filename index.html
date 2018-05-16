@@ -15,9 +15,26 @@
         .span2 {
             position: fixed;
             width: 20%;
-            max-height: 100%;
+            max-height: 90%;
             overflow-y: auto;
             overflow-x: hidden;
+        }
+
+        .span2::-webkit-scrollbar {
+            width: 4px;
+            height: 4px
+        }
+
+        .span2::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.2)
+        }
+
+        .span2::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+            border-radius: 0;
+            background: rgba(0, 0, 0, 0.1)
         }
 
         ul {
@@ -26,7 +43,6 @@
         }
 
         .span2 ul li {
-            margin: 10px 0;
             padding: 0 10px;
             box-sizing: border-box;
         }
@@ -63,6 +79,24 @@
             margin-right: 1%;
         }
 
+        #kjList {
+            position: relative;
+            left: 0;
+            animation: kjListAnimation 2s;
+        }
+
+        @keyframes kjListAnimation {
+            0% {
+                left: -180px;
+            }
+            75% {
+                left: .625rem/* 10/16 */
+            }
+            100% {
+                left: 0;
+            }
+        }
+
         #kjList>li:first-child {
             padding: 0;
             margin: 0;
@@ -71,6 +105,12 @@
         #kjList li>a {
             display: block;
             position: relative;
+            padding: 10px;
+            transition: transform 300ms;
+        }
+
+        #kjList>li>a:hover {
+            transform: translateX(15px)
         }
 
         #kjList li>ul>li:hover {
@@ -136,9 +176,11 @@
             font-size: 28px;
         }
     </style>
-    <script src="//at.alicdn.com/t/font_662964_apfzid9r3jlzbyb9.js"></script>
+    <script src="./iconfont/iconfont.js"></script>
     <style type="text/css">
         .icon {
+            position: relative;
+            left: 0;
             width: 1.2em;
             height: 1.2em;
             vertical-align: -0.15em;
@@ -166,6 +208,7 @@
                             <svg class="icon" aria-hidden="true">
                                 <use xlink:href="#icon-zhongyao"></use>
                             </svg>
+                            <!-- <i class="iconfont icon-zujian"></i> -->
                             &nbsp;&nbsp;&nbsp;重要组件
                             <i class="icon-chevron-right actived"></i>
 
@@ -179,8 +222,7 @@
                             </li>
                             <li onclick="leipiFormDesign.exec('verify');">&nbsp;
                                 <a href="javascript:;" draggable="true">
-                                    <span title="verify" name="verify" id="verify" data-msq="" idtype="verify" orgchecked="orgchecked0"
-                                        leipiplugins="verify">
+                                    <span title="verify" name="verify" id="verify" data-msq="" idtype="verify" orgchecked="orgchecked0" leipiplugins="verify">
                                         <input name="verify" value="校验" type="radio" />校验&nbsp;
                                         <input name="verify" value="不校验" checked="checked" type="radio" />不校验&nbsp;</span>
                                 </a>
@@ -210,20 +252,6 @@
                                         value="分页">
                                 </a>
                             </li>
-                            <li onclick="leipiFormDesign.exec('uploading');">&nbsp;
-                                <a href="javascript:;" draggable="true">
-                                    <u></u>
-                                    <input type="button" id="fileButton" idtype="file" class="btn btn-success" leipiplugins="uploading"
-                                        value="上传">
-                                </a>
-                            </li>
-                            <li onclick="leipiFormDesign.exec('');">&nbsp;
-                                <a href="javascript:;" draggable="true">
-                                    <u></u>
-                                    <input type="button" id="total" idtype="total" class="btn btn-primary" leipiplugins="total"
-                                        value="合计">
-                                </a>
-                            </li>
                             <li onclick="leipiFormDesign.exec('tables');">&nbsp;
                                 <a href="javascript:;" draggable="true">
                                     <u></u>
@@ -244,15 +272,13 @@
                         <ul>
                             <li onclick="leipiFormDesign.exec('text');">文本框:
                                 <a href="javascript:;" draggable="true">
-                                    <input name="text" type="text" idtype="text" title="" value="" placeholder="" class="leipiplugins"
-                                        leipiplugins="text">
+                                    <input name="text" type="text" idtype="text" title="" value="" placeholder="" class="leipiplugins" leipiplugins="text">
                                 </a>
                             </li>
                             <!--//多行文本-->
                             <li onclick="leipiFormDesign.exec('textarea');">多行文本:
                                 <a href="javascript:;" draggable="true">
-                                    <textarea title="多行文本" idtype="textarea" name="leipiNewField" class="leipiplugins" leipiplugins="textarea"
-                                        placeholder=""></textarea>
+                                    <textarea title="多行文本" idtype="textarea" name="leipiNewField" class="leipiplugins" leipiplugins="textarea" placeholder=""></textarea>
                                 </a>
                             </li>
                         </ul>
@@ -268,8 +294,7 @@
                         <ul>
                             <li onclick="leipiFormDesign.exec('date');">日期时间:
                                 <a href="javascript:;" draggable="true">
-                                    <input name="text" id="date" value="2017-09-20" type="text" idtype="date" title="" class="leipiplugins"
-                                        leipiplugins="date">
+                                    <input name="text" id="date" value="2017-09-20" type="text" idtype="date" title="" class="leipiplugins" leipiplugins="date">
                                 </a>
                             </li>
                         </ul>
@@ -325,8 +350,29 @@
                             <li onclick="leipiFormDesign.exec('button');">&nbsp;
                                 <a href="javascript:;" draggable="true">
                                     <u></u>
-                                    <input type="button" class="btn btn-success" id="entering" idtype="button" leipiplugins="button"
+                                    <input type="button" class="btn btn-success" id="ajaxbtn" idtype="button" leipiplugins="button"
                                         value="AJAX">
+                                </a>
+                            </li>
+                            <li onclick="leipiFormDesign.exec('uploading');">&nbsp;
+                                <a href="javascript:;" draggable="true">
+                                    <u></u>
+                                    <input type="button" id="fileButton" idtype="file" class="btn btn-success" leipiplugins="uploading"
+                                        value="上传">
+                                </a>
+                            </li>
+                            <li onclick="leipiFormDesign.exec('uploading');">&nbsp;
+                                <a href="javascript:;" draggable="true">
+                                    <u></u>
+                                    <input type="button" id="download" idtype="download" class="btn btn-warning" leipiplugins="download"
+                                        value="下载">
+                                </a>
+                            </li>
+                            <li onclick="leipiFormDesign.exec('');">&nbsp;
+                                <a href="javascript:;" draggable="true">
+                                    <u></u>
+                                    <input type="button" id="total" idtype="total" class="btn btn-primary" leipiplugins="total"
+                                        value="合计">
                                 </a>
                             </li>
                             <li onclick="leipiFormDesign.exec('button');">&nbsp;
@@ -365,6 +411,7 @@
                 <form action="" method="post" id="myform">
                     <!-- 加载编辑器的容器 -->
                     <script id="myFormDesign" type="text/plain" name="content">
+
                     </script>
                 </form>
             </div>
@@ -392,8 +439,6 @@
     document.ondragover = function (e) {
         e.preventDefault();
     };
-
-
     $(function () {
         var d = tool.getToDayDate('yyyy-MM-dd');
         $('#date').val(d);
@@ -422,21 +467,16 @@
                 });
                 var $el = $(this).next();
                 var $IC = $(this).children("i");
-                //                debugger;
                 if ($IC.hasClass("active")) {
                     $IC.attr('class', "icon-chevron-right actived");
                 } else {
                     $IC.attr('class', "icon-chevron-right active");
                 }
                 $el.toggle(300);
-            });
+            })
         }
     });
     var editor = UE.getEditor("myFormDesign");
-
-    //    editor.addListener('contentChange', function () {//监听富文本里的内容发生改变时触发
-
-    //    });
 
     editor.addListener("ready", function () { //监听富文本是否加载完成
         //通过ajax请求数据
@@ -457,4 +497,5 @@
         });
     });
 </script>
+
 </html>

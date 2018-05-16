@@ -1098,40 +1098,40 @@ UE.plugins['paging'] = function () {
     });
 };
 /**
- * 自定义total控件
+ * 自定义合计total控件
  * button
  * */
 UE.plugins['total'] = function () {
     var me = this, thePlugins = 'total';
-    me.commands[thePlugins] = {
-        execCommand: function () {
-            var dialog = new UE.ui.Dialog({
-                iframeUrl: this.options.UEDITOR_HOME_URL + UE.leipiFormDesignUrl + '/total.html',
-                name: thePlugins,
-                editor: this,
-                title: '按钮控件',
-                cssRules: "width:800px;height:400px;",
-                buttons: [
-                    {
-                        className: 'edui-okbutton',
-                        label: '确定',
-                        onclick: function () {
-                            dialog.close(true);
-                        }
-                    },
-                    {
-                        className: 'edui-cancelbutton',
-                        label: '取消',
-                        onclick: function () {
-                            dialog.close(false);
-                        }
-                    }
-                ]
-            });
-            dialog.render();
-            dialog.open();
-        }
-    };
+    // me.commands[thePlugins] = {
+    //     execCommand: function () {
+    //         var dialog = new UE.ui.Dialog({
+    //             iframeUrl: this.options.UEDITOR_HOME_URL + UE.leipiFormDesignUrl + '/total.html',
+    //             name: thePlugins,
+    //             editor: this,
+    //             title: '按钮控件',
+    //             cssRules: "width:800px;height:400px;",
+    //             buttons: [
+    //                 {
+    //                     className: 'edui-okbutton',
+    //                     label: '确定',
+    //                     onclick: function () {
+    //                         dialog.close(true);
+    //                     }
+    //                 },
+    //                 {
+    //                     className: 'edui-cancelbutton',
+    //                     label: '取消',
+    //                     onclick: function () {
+    //                         dialog.close(false);
+    //                     }
+    //                 }
+    //             ]
+    //         });
+    //         dialog.render();
+    //         dialog.open();
+    //     }
+    // };
     var popup = new baidu.editor.ui.Popup({
         editor: this,
         content: '',
@@ -1156,6 +1156,75 @@ UE.plugins['total'] = function () {
         if (/input|button/ig.test(el.tagName) && leipiPlugins == thePlugins) {
             var html = popup.formatHtml(
                 '<nobr>合计控件: <span onclick=$$._delete() class="edui-clickable">删除</span></nobr>');
+            if (html) {
+                popup.getDom('content').innerHTML = html;
+                popup.anchorEl = el;
+                popup.showAnchor(popup.anchorEl);
+            } else {
+                popup.hide();
+            }
+        }
+    });
+};
+/**
+ * 自定义下载downdownload控件
+ * button
+ * */
+UE.plugins['download'] = function () {
+    var me = this, thePlugins = 'download';
+    // me.commands[thePlugins] = {
+    //     execCommand: function () {
+    //         var dialog = new UE.ui.Dialog({
+    //             iframeUrl: this.options.UEDITOR_HOME_URL + UE.leipiFormDesignUrl + '/download.html',
+    //             name: thePlugins,
+    //             editor: this,
+    //             title: '按钮控件',
+    //             cssRules: "width:800px;height:400px;",
+    //             buttons: [
+    //                 {
+    //                     className: 'edui-okbutton',
+    //                     label: '确定',
+    //                     onclick: function () {
+    //                         dialog.close(true);
+    //                     }
+    //                 },
+    //                 {
+    //                     className: 'edui-cancelbutton',
+    //                     label: '取消',
+    //                     onclick: function () {
+    //                         dialog.close(false);
+    //                     }
+    //                 }
+    //             ]
+    //         });
+    //         dialog.render();
+    //         dialog.open();
+    //     }
+    // };
+    var popup = new baidu.editor.ui.Popup({
+        editor: this,
+        content: '',
+        className: 'edui-bubble',
+        _edittext: function () {
+            baidu.editor.plugins[thePlugins].editdom = popup.anchorEl;
+            me.execCommand(thePlugins);
+            this.hide();
+        },
+        _delete: function () {
+            if (window.confirm('确认删除该控件吗？')) {
+                baidu.editor.dom.domUtils.remove(this.anchorEl, false);
+            }
+            this.hide();
+        }
+    });
+    popup.render();
+    me.addListener('mouseover', function (t, evt) {
+        evt = evt || window.event;
+        var el = evt.target || evt.srcElement;
+        var leipiPlugins = el.getAttribute('leipiplugins');
+        if (/input|button/ig.test(el.tagName) && leipiPlugins == thePlugins) {
+            var html = popup.formatHtml(
+                '<nobr>下载控件: <span onclick=$$._delete() class="edui-clickable">删除</span></nobr>');
             if (html) {
                 popup.getDom('content').innerHTML = html;
                 popup.anchorEl = el;

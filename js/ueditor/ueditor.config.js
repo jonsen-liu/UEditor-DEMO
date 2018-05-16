@@ -31,7 +31,7 @@
 
         // 服务器统一请求接口路径
         // , serverUrl: URL + "jsp/controller.jsp"
-        , serverUrl: "/ueditorOk/data/data2.json"
+        , serverUrl: "/data/data2.json"
         // , serverUrl: "http://DESKTOP-IP4KFHU:18280/controller.jsp"
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的从新定义

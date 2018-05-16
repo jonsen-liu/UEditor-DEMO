@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,7 +8,7 @@
     <link rel="stylesheet " href="./css/bootstrap.min.css">
     <link rel="stylesheet " href="./css/bootstrap-table.min.css">
     <link rel="stylesheet " href="./css/jquery.datetimepicker.css">
-    <link rel="stylesheet " href="./css/zTreeStyle/zTreeStyle.css" />
+    <link rel="stylesheet " href="./css/zTreeStyle/zTreeStyle.css"/>
     <script src="./js/jquery1.8.3.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
     <link href="./css/bootstrap-responsive.css " rel="stylesheet">
@@ -161,25 +162,25 @@
                 <div class="_td span12">
                     <div>
                         <style>
-                            .treeBox169 {
+                            .treeBox775 {
                                 border: 1px solid rgba(0, 0, 0, 0.1);
                                 overflow: auto;
                                 width: 100%;
                                 height: 100%
                             }
 
-                            .treeBox169::-webkit-scrollbar {
+                            .treeBox775::-webkit-scrollbar {
                                 width: 4px;
                                 height: 4px
                             }
 
-                            .treeBox169::-webkit-scrollbar-thumb {
+                            .treeBox775::-webkit-scrollbar-thumb {
                                 border-radius: 5px;
                                 -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
                                 background: rgba(0, 0, 0, 0.2)
                             }
 
-                            .treeBox169::-webkit-scrollbar-track {
+                            .treeBox775::-webkit-scrollbar-track {
                                 -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
                                 border-radius: 0;
                                 background: rgba(0, 0, 0, 0.1)
@@ -193,10 +194,10 @@
                                 *vertical-align: middle
                             }
                         </style>
-                        <div class="contentBox169" id="contentBox169">
+                        <div class="contentBox775" id="contentBox775">
                             <div>
-                                <div class="treeBox169">
-                                    <ul id="tree1169" class="ztree"></ul>
+                                <div class="treeBox775">
+                                    <ul id="tree1775" class="ztree"></ul>
                                 </div>
                             </div>
                         </div>
@@ -212,8 +213,8 @@
                                 "N": "ps"
                             };
 
-                            function onCheck169(e, treeId, treeNode) {
-                                var treeObj = $.fn.zTree.getZTreeObj("tree1169");
+                            function onCheck775(e, treeId, treeNode) {
+                                var treeObj = $.fn.zTree.getZTreeObj("tree1775");
                                 var nodes = treeObj.getCheckedNodes(true);
                                 var arr = [];
                                 for (var i = 0; i < nodes.length; i++) {
@@ -232,27 +233,27 @@
                                 console.log(arr)
                             }
 
-                            function onDblClick169(e, treeId, treeNode, clickFlag) {
+                            function onDblClick775(e, treeId, treeNode, clickFlag) {
                                 clearTimeout(timeClick);
-                                var treeObj = $.fn.zTree.getZTreeObj("tree1169");
+                                var treeObj = $.fn.zTree.getZTreeObj("tree1775");
                                 if (treeNode != null) {
                                     treeObj.checkNode(treeNode, !treeNode.checked, true);
                                     treeObj.checkNode(treeNode, treeNode.checked, false)
                                 }
-                                onCheck169()
+                                onCheck775()
                             }
                             var timeClick;
 
-                            function onNodeClick169(e, treeId, treeNode) {
+                            function onNodeClick775(e, treeId, treeNode) {
                                 clearTimeout(timeClick);
                                 timeClick = setTimeout(function () {
-                                    var zTree = $.fn.zTree.getZTreeObj("tree1169");
+                                    var zTree = $.fn.zTree.getZTreeObj("tree1775");
                                     zTree.expandNode(treeNode);
                                     clearTimeout(timeClick)
                                 }, 230)
                             };
                             var zTree;
-                            var setting169 = {
+                            var setting775 = {
                                 async: {
                                     enable: true,
                                     type: "get",
@@ -282,15 +283,15 @@
                                     renameTitle: "编辑节点名称",
                                 },
                                 callback: {
-                                    onClick: onNodeClick169,
+                                    onClick: onNodeClick775,
                                     beforeCheck: true,
-                                    onCheck: onCheck169,
+                                    onCheck: onCheck775,
                                     beforeRename: zTreeBeforeRename,
-                                    onDblClick: onDblClick169,
+                                    onDblClick: onDblClick775,
                                 }
                             };
                             $(document).ready(function () {
-                                $.fn.zTree.init($("#tree1169"), setting169)
+                                $.fn.zTree.init($("#tree1775"), setting775)
                             });
 
                             function ajaxDataFilter(treeId, parentNode, responseData) {
@@ -311,7 +312,7 @@
                                 var addBtn = $("#addBtn_" + treeNode.tId);
                                 if (addBtn) {
                                     addBtn.bind("click", function () {
-                                        var zTree = $.fn.zTree.getZTreeObj("tree1169");
+                                        var zTree = $.fn.zTree.getZTreeObj("tree1775");
                                         $.ajax({
                                             url: addDataUrl,
                                             type: "post",
@@ -431,14 +432,14 @@
         <div class="_tr row-fluid">
             <div class="_td span12">
                 <style>
-                    #paging248 {
+                    #paging885 {
                         text-align: center;
                         margin: 10px 0 20px;
                     }
 
-                    #paging248>ul,
-                    #paging248>ul>li,
-                    #paging248>div {
+                    #paging885>ul,
+                    #paging885>ul>li,
+                    #paging885>div {
                         display: inline-block;
                         margin: 0;
                         padding: 0;
@@ -446,7 +447,7 @@
                         vertical-align: middle
                     }
 
-                    #paging248>ul>li {
+                    #paging885>ul>li {
                         float: left;
                         color: #08c;
                         padding: 4px 10px;
@@ -454,21 +455,21 @@
                         cursor: pointer
                     }
 
-                    #paging248>ul>li:hover,
-                    #paging248 a:hover {
+                    #paging885>ul>li:hover,
+                    #paging885 a:hover {
                         color: #005580;
                         background-color: #f5f5f5
                     }
 
-                    #paging248>ul>li:first-child {
+                    #paging885>ul>li:first-child {
                         border-radius: 4px 0 0 4px
                     }
 
-                    #paging248>ul>li:last-child {
+                    #paging885>ul>li:last-child {
                         border-radius: 0 4px 4px 0
                     }
 
-                    #paging248 a {
+                    #paging885 a {
                         display: inline-block;
                         font-size: 14px;
                         line-height: 20px;
@@ -485,25 +486,25 @@
                         cursor: default !important
                     }
 
-                    #paging248>div {
+                    #paging885>div {
                         vertical-align: top
                     }
 
-                    #paging248 input {
+                    #paging885 input {
                         margin: 0;
                         width: 20px;
                         vertical-align: top
                     }
 
-                    #paging248>div>input {
+                    #paging885>div>input {
                         border-radius: 4px 0 0 4px
                     }
 
-                    #paging248>div>a {
+                    #paging885>div>a {
                         border-radius: 0 4px 4px 0
                     }
                 </style>
-                <div id="paging248">
+                <div id="paging885">
                     <a href="javascript:;" id="pagingHome">«</a>
                     <ul id="pagingFn"></ul>
                     <a href="javascript:;" id="pagingLast">»</a>
@@ -618,6 +619,8 @@
                 <input type="button" class="btn btn-info" id="move" idtype="button" value="移动">
                 <input type="button" class="btn btn-danger" id="remove" idtype="button" value="删除">
                 <input type="button" class="btn btn-warning" id="countermand" idtype="button" value="取消">
+                <input type="button" id="fileButton" idtype="file" class="btn btn-success" value="上传">
+                <input type="button" id="download" idtype="download" class="btn btn-warning" value="下载">
                 <br>
             </div>
         </div>
@@ -1009,7 +1012,7 @@
                 modalBoxFather.style.display = "none";
                 modalBoxBody.innerHTML = ""
             }
-        }
+        };
     </script>
     <script>
         var myFile = document.querySelectorAll("[idtype='file']");
@@ -1062,7 +1065,7 @@
                     if (XMLHttpReq.readyState == 4) {
                         if (XMLHttpReq.status == 200) {
                             alert("上传成功...");
-                            modalBoxFather.style.display = "none11111111111111111";
+                            modalBoxFather.style.display = "none";
                             modalBoxBody.innerHTML = ""
                         } else {
                             if (XMLHttpReq.status == 404) {
@@ -1074,6 +1077,32 @@
                     }
                 };
                 xhr.send(formData)
+            }
+        };
+    </script>
+    <script>
+        var downloads = document.querySelectorAll('[idtype="download"]');
+        for (var i = 0; i < downloads.length; i++) {
+            downloads[i].onclick = function () {
+                var body = document.querySelector("body").innerHTML;
+                var url = " ./data/download.json ";
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", url, true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.send({
+                    data: body
+                });
+                xhr.onreadystatechange = function () {
+                    var XMLHttpReq = xhr;
+                    if (XMLHttpReq.readyState == 4) {
+                        if (XMLHttpReq.status == 200) {
+                            var data = JSON.parse(XMLHttpReq.response);
+                            window.open(data.url)
+                        } else {
+                            alert("下载功能------" + XMLHttpReq.status)
+                        }
+                    }
+                }
             }
         };
     </script>
